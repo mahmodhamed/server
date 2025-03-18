@@ -13,6 +13,15 @@ function getAllProducts(){
     return productsDB.sort((a, b) => a.id - b.id)
 }
 
+function sortProductsByPrice(products, sort){
+    if(sort=="asc"){
+        return products.sort((a, b) => a.price - b.price)
+    }else{
+        return products.sort((a, b) => b.price - a.price)
+    }
+    
+}
+
 function deleteProduct(id){
     product = productsDB.filter((product) => product.id==0)
     const index = productsDB.findIndex((product) => product.id === id);
@@ -21,9 +30,14 @@ function deleteProduct(id){
     }
 }
 
-function getFilteredProducts(filter){
-    products = productsDB.filter((product) => product.type==filter).sort((a, b) => a.id - b.id)
-    console.log(products)
+function getFilteredProducts(filter, sort){
+    if(filter != undefined){
+        products = productsDB.filter((product) => product.type==filter).sort((a, b) => a.id - b.id)
+    }
+    if(sort != undefined){
+        product = sortProductsByPrice(products, sort)
+    }
+    
     return products
 }
 

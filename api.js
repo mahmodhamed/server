@@ -4,6 +4,7 @@ const { createNewProduct, updateProduct, getAllProducts, deleteProduct, getFilte
 const router = express.Router();
 
 router.post('/products', (req, res) => {
+    console.log(req.body)
     createNewProduct(req.body["title"], req.body["price"], req.body["type"]);
     res.json({ message: "Product Added!"})
 });
@@ -16,9 +17,9 @@ router.put('/products/:id', (req, res) => {
 });
 
 router.get('/products', (req, res) => {
-    if(req.query.filter != undefined){
+    if(req.query.filter != undefined  || req.query.sort != undefined){
         console.log("FILTERING")
-        products = getFilteredProducts(req.query.filter)
+        products = getFilteredProducts(req.query.filter, req.query.sort)
     }else{
         products = getAllProducts(req.query.filter)
     }
