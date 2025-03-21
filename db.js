@@ -116,8 +116,8 @@ function sortProductsByPrice(products, sort){
 }
 
 function deleteProduct(id){
-    product = productsDB.filter((product) => product.id==0)
-    const index = productsDB.findIndex((product) => product.id === id);
+    product = productsDB.filter((product) => product.id == id)
+    const index = productsDB.findIndex((product) => product.id == id);
     if (index !== -1) {
         productsDB.splice(index, 1);
     }
