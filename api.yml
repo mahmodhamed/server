@@ -33,13 +33,19 @@ paths:
                   message:
                     type: string
     get:
-      summary: Get all products or filter them
+      summary: Get all products or filter/sort them
       parameters:
         - name: filter
           in: query
           required: false
           schema:
             type: string
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [price]
       responses:
         200:
           description: List of products
@@ -52,6 +58,15 @@ paths:
                     type: array
                     items:
                       type: object
+                      properties:
+                        id:
+                          type: string
+                        title:
+                          type: string
+                        price:
+                          type: number
+                        type:
+                          type: string
   /products/{id}:
     put:
       summary: Update a product
@@ -104,6 +119,34 @@ paths:
                 properties:
                   message:
                     type: string
+  /product/{id}:
+    get:
+      summary: Get a product by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Product details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      title:
+                        type: string
+                      price:
+                        type: number
+                      type:
+                        type: string
   /cart/total:
     get:
       summary: Get total amount of the cart
